@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In and Sign Out</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 5px;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="password"] {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .switch {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .switch a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        .switch a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="form-container">
+        <h2>Sign In</h2>
+        <form id="signin-form">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+            <button type="submit">Sign In</button>
+        </form>
+        <div class="switch">
+            <p>Don't have an account? <a href="#" id="switch-to-signout">Sign Out</a></p>
+        </div>
+    </div>
+
+    <script>
+        const formContainer = document.getElementById('form-container');
+        const switchLink = document.getElementById('switch-to-signout');
+
+        switchLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            const isSigningIn = formContainer.querySelector('h2').textContent === 'Sign In';
+
+            formContainer.innerHTML = isSigningIn ? `
+                <h2>Sign Out</h2>
+                <form id="signout-form">
+                    <button type="submit">Sign Out</button>
+                </form>
+                <div class="switch">
+                    <p>Already signed out? <a href="#" id="switch-to-signin">Sign In</a></p>
+                </div>
+            ` : `
+                <h2>Sign In</h2>
+                <form id="signin-form">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your username" required>
+
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+
+                    <button type="submit">Sign In</button>
+                </form>
+                <div class="switch">
+                    <p>Don't have an account? <a href="#" id="switch-to-signout">Sign Out</a></p>
+                </div>
+            `;
+
+            const newSwitchLink = formContainer.querySelector('.switch a');
+            newSwitchLink.addEventListener('click', (event) => {
+                event.preventDefault();
+                switchLink.click();
+            });
+        });
+    </script>
+</body>
+</html>
